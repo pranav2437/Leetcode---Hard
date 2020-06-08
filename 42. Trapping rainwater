@@ -1,0 +1,36 @@
+class Solution {
+    public int trap(int[] height) {
+        Stack<Integer> st = new Stack<>();
+        int[] arr = new int[height.length];
+        if(height.length==0){
+            return 0;
+        }
+        int[] rmax=new int[height.length];
+        rmax[rmax.length-1]=height[height.length-1];
+        int max=rmax[rmax.length-1];
+        for(int i=height.length-2;i>=0;i--){
+            max=Math.max(height[i],max);
+            rmax[i]=max;
+        }
+        // for(int i=0;i<rmax.length;i++){
+        //     System.out.print(rmax[i]+" ");
+        // }
+        arr[0]=height[0];
+        max=arr[0];
+        for(int i=1;i<arr.length;i++){
+            max=Math.max(max,height[i]);
+            arr[i]=max;
+        }
+        // for(int i=0;i<rmax.length;i++){
+        //     System.out.print(arr[i]+" ");
+        // }
+        int ans=0;
+        for(int i=0;i<arr.length;i++){
+            if(height[i]<rmax[i]){
+                ans+=Math.min(arr[i],rmax[i])-height[i];
+            }
+            
+        }
+        return ans;
+    }
+}
